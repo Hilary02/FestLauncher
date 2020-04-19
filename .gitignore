@@ -263,5 +263,6 @@ __pycache__/
 # Siv3D
 Engine/
 Game/
+App/
 
-FestLauncher_log.html
+log.html

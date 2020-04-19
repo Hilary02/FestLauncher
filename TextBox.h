@@ -3,7 +3,7 @@
 /*
 à–¾•¶‚Ì•\¦—Ìˆæ‚ğ’è‹`‚·‚é
 */
-class TextBox{
+class TextBox {
 public:
 	TextBox();
 	TextBox(Point pos, Size s, int fontsize, bool toggleCenter = false);

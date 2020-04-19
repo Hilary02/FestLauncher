@@ -1,11 +1,12 @@
-﻿//# include <Siv3D.hpp>
+﻿#include <Siv3D.hpp>
 #include "Launcher.h"
 
 void correctWindowSize() {
 	int minW = 1200;
 	int minH = 600;
-	int w = Window::Width();
-	int h = Window::Height();
+	Size windowSize = Window::ClientSize();
+	int w = windowSize.x;
+	int h = windowSize.y;
 
 	if (w < minW) w = minW;
 	if (h < minH) h = minH;
@@ -17,7 +18,7 @@ void Main() {
 	Graphics::SetBackground(Palette::Gray); //背景色設定
 
 	Window::SetTitle(L"GameLauncher");
-	Window::SetStyle(WindowStyle::Sizeable); //サイズ可変
+	Window::SetStyle(WindowStyle::Sizable); //サイズ可変
 
 	if (!FileSystem::IsDirectory(L"./Game")) System::Exit();	//存在しなければ終了
 	Launcher launcher(L"./Game");		//ランチャークラスの生成・同時に読み込み
