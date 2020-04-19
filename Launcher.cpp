@@ -11,9 +11,9 @@ Launcher::Launcher(const FilePath& path) :
 	numImgs = games[selectGame].screenshots.size();
 
 	//                   [左上座標] , {サイズ},フォントサイズ,文字を中央に書くか
-	tb_title = TextBox({ 420,30 }, { 510, 55 }, 27, true);
-	tb_summary = TextBox({ 420,90 }, { 510, 40 }, 18, true);
-	tb_explain = TextBox({ 420,490 }, { 510, 140 }, 20, false);
+	tb_title = TextArea({ 420,30 }, { 510, 55 }, 27, true);
+	tb_summary = TextArea({ 420,90 }, { 510, 40 }, 18, true);
+	tb_explain = TextArea({ 420,490 }, { 510, 140 }, 20, false);
 	btn_gameLaunsh = Button({ 980,350 }, { 200, 100 }, 5, 20, L"Z：スタート!");
 	btn_viewPaper = Button({ 980,190 }, { 200, 100 }, 5, 20, L"X：操作説明");
 	btn_bannerPrev = Button({ 88,Window::Height() / 4 - 90 - 32 }, { bannerSub.w + 4, bannerSub.h + 4 }, 0, 1, L"");

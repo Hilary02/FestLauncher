@@ -5,11 +5,11 @@
 /*
 à–¾•¶‚Ì•\¦—Ìˆæ‚ğ’è‹`‚·‚é
 */
-class TextBox {
+class TextArea {
 public:
-	TextBox();
-	TextBox(Point pos, Size s, int fontsize, bool toggleCenter = false);
-	~TextBox();
+	TextArea();
+	TextArea(Point pos, Size s, int fontsize, bool toggleCenter = false);
+	~TextArea();
 	void setPos(Point pos);
 	void setSize(Size s);
 	void draw(String text, Texture frame);

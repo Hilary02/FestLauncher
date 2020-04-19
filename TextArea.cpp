@@ -1,26 +1,26 @@
 #include "stdafx.h"
-#include "TextBox.h"
+#include "TextArea.h"
 
-TextBox::TextBox() {}
+TextArea::TextArea() {}
 
-TextBox::TextBox(Point pos, Size s, int fontsize, bool toggleCenter) {
+TextArea::TextArea(Point pos, Size s, int fontsize, bool toggleCenter) {
 	this->pos = Point(pos);
 	this->size = s;
 	font = Font(fontsize);
 	this->isCenterText = toggleCenter;
 }
 
-TextBox::~TextBox() {}
+TextArea::~TextArea() {}
 
-void TextBox::setPos(Point p) {
+void TextArea::setPos(Point p) {
 	this->pos = Point(p);
 }
 
-void TextBox::setSize(Size s) {
+void TextArea::setSize(Size s) {
 	this->size = s;
 }
 
-void TextBox::draw(String text, Texture frame) {
+void TextArea::draw(String text, Texture frame) {
 	drawFrame(pos, size, frame);	//ƒtƒŒ[ƒ€•`‰æ
 
 	//•¶š”ãŒÀ‚ğİ’è
@@ -39,7 +39,7 @@ void TextBox::draw(String text, Texture frame) {
 }
 
 
-void TextBox::drawFrame(Point basePos, Size size, Texture frame) {
+void TextArea::drawFrame(Point basePos, Size size, Texture frame) {
 	const int w = frame.width / 3;
 	const int h = frame.height / 3;
 	const std::array<int, 3> width = { w, size.x - 2 * w, w };

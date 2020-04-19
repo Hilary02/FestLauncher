@@ -2,7 +2,7 @@
 #include "Game.h"
 #include "Loader.h"
 #include "Button.h"
-#include "TextBox.h"
+#include "TextArea.h"
 
 /*
 ‰æ‘œƒTƒCƒY‚ð•ÛŠÇ
@@ -27,16 +27,16 @@ private:
 	Loader loader;
 	Array<Game> games;
 
-	TextBox tb_title;
-	TextBox tb_summary;
-	TextBox tb_explain;
+	TextArea tb_title;
+	TextArea tb_summary;
+	TextArea tb_explain;
 
 	Button btn_gameLaunsh;
 	Button btn_viewPaper;
 	Button btn_bannerPrev;
 	Button btn_bannerNext;
 	Button btn_operation;
-	
+
 
 	const Font debugFont;
 	const boxSize bannerCenter = { 320, 240 };
@@ -45,7 +45,7 @@ private:
 	int selectImg = 0;
 	int numGames;
 	int numImgs;
-	int numLoop(int next,int max);
+	int numLoop(int next, int max);
 
 	void checkKey();
 
@@ -54,7 +54,7 @@ private:
 	int winW, winH;
 
 	bool isShowingOptional = false;
-	
+
 	Shape s;
 	TextWriter logWriter;
 
