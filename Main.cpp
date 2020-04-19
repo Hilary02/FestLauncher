@@ -15,13 +15,15 @@ void correctWindowSize() {
 
 void Main() {
 	Window::Resize(1200, 600);				//ウィンドウサイズ初期化
-	Graphics::SetBackground(Palette::Gray); //背景色設定
+	Scene::SetBackground(Palette::Gray);
 
 	Window::SetTitle(L"GameLauncher");
 	Window::SetStyle(WindowStyle::Sizable); //サイズ可変
 
-	if (!FileSystem::IsDirectory(L"./Game")) System::Exit();	//存在しなければ終了
-	Launcher launcher(L"./Game");		//ランチャークラスの生成・同時に読み込み
+	const FilePath homeDirectory = FileSystem::CurrentDirectory();
+
+	if (!FileSystem::IsDirectory(U"./Game")) System::Exit();	//存在しなければ終了
+	Launcher launcher(U"./Game");		//ランチャークラスの生成・同時に読み込み
 
 	while (System::Update()) {
 		correctWindowSize();	//最小ウィンドウサイズへの修正
@@ -29,6 +31,6 @@ void Main() {
 		launcher.draw();
 
 		// カーソルの位置を表示
-		Circle(Mouse::Pos(), 20).draw({ 255, 0, 0, 127 });
+		Circle(Cursor::Pos(), 40).draw(ColorF(1, 0, 0, 0.5));
 	}
 }
