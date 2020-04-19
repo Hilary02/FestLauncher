@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "TextBox.h"
 
-TextBox::TextBox(){}
+TextBox::TextBox() {}
 
 TextBox::TextBox(Point pos, Size s, int fontsize, bool toggleCenter) {
 	this->pos = Point(pos);
@@ -10,7 +10,7 @@ TextBox::TextBox(Point pos, Size s, int fontsize, bool toggleCenter) {
 	this->isCenterText = toggleCenter;
 }
 
-TextBox::~TextBox(){}
+TextBox::~TextBox() {}
 
 void TextBox::setPos(Point p) {
 	this->pos = Point(p);
@@ -20,15 +20,15 @@ void TextBox::setSize(Size s) {
 	this->size = s;
 }
 
-void TextBox::draw(String text,Texture frame) {
-	drawFrame(pos, size,frame);	//フレーム描画
+void TextBox::draw(String text, Texture frame) {
+	drawFrame(pos, size, frame);	//フレーム描画
 
 	//文字数上限を設定
 	unsigned int n = Min(font.drawableCharacters(text, size.x - 40), text.length);
 	int t = Max(1, (size.y - 10) / font.height);
-	String cuttedText = text.substr(0, n*t);
+	String cuttedText = text.substr(0, n * t);
 	if (n != text.length) {
-		cuttedText += L"...";
+		cuttedText += U"...";
 	}
 	if (isCenterText) {
 		font.drawCenter(cuttedText, Vec2(pos.x + size.x / 2, pos.y + size.y / 2), Palette::Black);
@@ -47,7 +47,7 @@ void TextBox::drawFrame(Point basePos, Size size, Texture frame) {
 	Point p(basePos);
 	for (int y = 0; y < 3; y++) {
 		for (int x = 0; x < 3; x++) {
-			frame({ w*x,h*y }, { w, h }).resize(width[x], height[y]).draw(p);
+			frame({ w * x,h * y }, { w, h }).resized(width[x], height[y]).draw(p);
 			p.x += width[x];
 		}
 		p.x = basePos.x;

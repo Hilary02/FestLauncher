@@ -1,5 +1,7 @@
 #pragma once
-#include "TextFrame.h"
+//#include "TextFrame.h"
+#include <Siv3D.hpp>
+
 /*
 à–¾•¶‚Ì•\¦—Ìˆæ‚ğ’è‹`‚·‚é
 */
@@ -15,6 +17,6 @@ protected:
 	Point pos;
 	Size size;
 	Font font;
-	bool isCenterText;
+	bool isCenterText = false;
 	void drawFrame(Point basePos, Size size, Texture frame);
 };
