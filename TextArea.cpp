@@ -8,6 +8,7 @@ TextArea::TextArea(Point pos, Size s, int fontsize, bool toggleCenter) {
 	this->size = s;
 	font = Font(fontsize);
 	this->isCenterText = toggleCenter;
+	rect = Rect(pos, size);
 }
 
 TextArea::~TextArea() {}
@@ -23,25 +24,26 @@ void TextArea::setSize(Size s) {
 void TextArea::draw(String text, Texture frame) {
 	drawFrame(pos, size, frame);	//ÉtÉåÅ[ÉÄï`âÊ
 
+	font(text).draw(rect, Palette::Black);
 	//ï∂éöêîè„å¿Çê›íË
-	unsigned int n = Min(font.drawableCharacters(text, size.x - 40), text.length);
-	int t = Max(1, (size.y - 10) / font.height);
-	String cuttedText = text.substr(0, n * t);
-	if (n != text.length) {
-		cuttedText += U"...";
-	}
-	if (isCenterText) {
-		font.drawCenter(cuttedText, Vec2(pos.x + size.x / 2, pos.y + size.y / 2), Palette::Black);
-	}
-	else {
-		font.draw(cuttedText, Vec2(pos.x + 10, pos.y + 10), Palette::Black);
-	}
+	//unsigned int n = Min(font.drawableCharacters(text, size.x - 40), text.length);
+	//int t = Max(1, (size.y - 10) / font.height());
+	//String cuttedText = text.substr(0, n * t);
+	//if (n != text.length) {
+	//	cuttedText += U"...";
+	//}
+	//if (isCenterText) {
+	//	font(cuttedText).draw(Vec2(pos.x + size.x / 2, pos.y + size.y / 2), Palette::Black);
+	//}
+	//else {
+	//	font(cuttedText).draw(Vec2(pos.x + 10, pos.y + 10), Palette::Black);
+	//}
 }
 
 
 void TextArea::drawFrame(Point basePos, Size size, Texture frame) {
-	const int w = frame.width / 3;
-	const int h = frame.height / 3;
+	const int w = frame.width() / 3;
+	int h = frame.height() / 3;
 	const std::array<int, 3> width = { w, size.x - 2 * w, w };
 	const std::array<int, 3> height = { h, size.y - 2 * h, h };
 	Point p(basePos);
