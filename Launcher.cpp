@@ -14,19 +14,19 @@ Launcher::Launcher(const FilePath& path) :
 	tb_title = TextArea({ 420,30 }, { 510, 55 }, 27, true);
 	tb_summary = TextArea({ 420,90 }, { 510, 40 }, 18, true);
 	tb_explain = TextArea({ 420,490 }, { 510, 140 }, 20, false);
-	btn_gameLaunsh = Button({ 980,350 }, { 200, 100 }, 5, 20, L"Z：スタート!");
-	btn_viewPaper = Button({ 980,190 }, { 200, 100 }, 5, 20, L"X：操作説明");
-	btn_bannerPrev = Button({ 88,Window::Height() / 4 - 90 - 32 }, { bannerSub.w + 4, bannerSub.h + 4 }, 0, 1, L"");
-	btn_bannerNext = Button({ 88,Window::Height() * 3 / 4 - 90 + 28 }, { bannerSub.w + 4, bannerSub.h + 4 }, 0, 1, L"");
+	btn_gameLaunsh = Button({ 980,350 }, { 200, 100 }, 5, 20, U"Z：スタート!");
+	btn_viewPaper = Button({ 980,190 }, { 200, 100 }, 5, 20, U"X：操作説明");
+	btn_bannerPrev = Button({ 88,Window::ClientSize().y / 4 - 90 - 32 }, { bannerSub.w + 4, bannerSub.h + 4 }, 0, 1, U"");
+	btn_bannerNext = Button({ 88,Window::ClientSize().y * 3 / 4 - 90 + 28 }, { bannerSub.w + 4, bannerSub.h + 4 }, 0, 1, U"");
 
 
-	if (FileSystem::IsFile(L"Design/log.txt")) {
-		logWriter = TextWriter(L"Design/log.txt", OpenMode::Append);
-		logWriter.writeln(time.format(L"HH:mm:ss") + L",ランチャー起動,0");
+	if (FileSystem::IsFile(U"Design/log.txt")) {
+		logWriter = TextWriter(U"Design/log.txt", OpenMode::Append);
+		logWriter.writeln(time.format(U"HH:mm:ss") + U",ランチャー起動,0");
 	}
 	else {
-		logWriter = TextWriter(L"Design/log.txt");
-		logWriter.writeln(time.format(L"HH:mm:ss") + L",ファイル作成,0");
+		logWriter = TextWriter(U"Design/log.txt");
+		logWriter.writeln(time.format(U"HH:mm:ss") + U",ファイル作成,0");
 	}
 }
 
@@ -49,8 +49,8 @@ void Launcher::update() {
 
 	if (isShowingOptional) {
 		//btn_operation.update();
-		btn_operation.setSize({ Window::Width() - 20, Window::Height() - 20 });
-		if (Input::KeyX.clicked || Gamepad(0).button(2).clicked || btn_operation.leftClicked()) {
+		btn_operation.setSize({ Window::ClientSize().x - 20, Window::ClientSize().y - 20 });
+		if (KeyX.down() || Gamepad(0).buttons[2].pressed || btn_operation.leftClicked()) {
 			isShowingOptional = false;
 		}
 	}
@@ -59,8 +59,8 @@ void Launcher::update() {
 		checkKey();
 	}
 
-	winW = Window::Width();
-	winH = Window::Height();
+	winW = Window::ClientSize().x;
+	winH = Window::ClientSize().y;
 
 	tb_title.setSize({ winW - 440, 55 });
 	tb_summary.setSize({ winW - 440, 45 });
@@ -72,30 +72,30 @@ void Launcher::update() {
 	btn_gameLaunsh.update();
 	btn_viewPaper.update();
 
-	btn_bannerPrev.setPos({ 88,Window::Height() / 4 - 90 - 32 });
-	btn_bannerNext.setPos({ 88,Window::Height() * 3 / 4 - 90 + 28 });
+	btn_bannerPrev.setPos({ 88,Window::ClientSize().y / 4 - 90 - 32 });
+	btn_bannerNext.setPos({ 88,Window::ClientSize().y * 3 / 4 - 90 + 28 });
 
 }
 
 void Launcher::draw() {
 	/*描画はここ*/
 	//左側バナー画像
-	//Rect(88, Window::Height() / 4 - 90 - 32, bannerSub.w + 4, bannerSub.h + 4).draw(Palette::Blue);
+	//Rect(88, Window::ClientSize().y / 4 - 90 - 32, bannerSub.w + 4, bannerSub.h + 4).draw(Palette::Blue);
 	btn_bannerPrev.draw();
-	games[numLoop(selectGame - 1, numGames)].img_banner.resize(bannerSub.w, bannerSub.h).draw(90, Window::Height() / 4 - 90 - 30);
+	games[numLoop(selectGame - 1, numGames)].img_banner.resized(bannerSub.w, bannerSub.h).draw(90, Window::ClientSize().y / 4 - 90 - 30);
 
-	//Rect(88, Window::Height() * 3 / 4 - 90 + 28, bannerSub.w + 4, bannerSub.h + 4).draw(Palette::Red);
+	//Rect(88, Window::ClientSize().y * 3 / 4 - 90 + 28, bannerSub.w + 4, bannerSub.h + 4).draw(Palette::Red);
 	btn_bannerNext.draw();
-	games[numLoop(selectGame + 1, numGames)].img_banner.resize(bannerSub.w, bannerSub.h).draw(90, Window::Height() * 3 / 4 - 90 + 30);
+	games[numLoop(selectGame + 1, numGames)].img_banner.resized(bannerSub.w, bannerSub.h).draw(90, Window::ClientSize().y * 3 / 4 - 90 + 30);
 
-	Rect(48, Window::Height() / 2 - 122, bannerCenter.w + 4, bannerCenter.h + 4).draw();
-	games[selectGame].img_banner.resize(bannerCenter.w, bannerCenter.h).draw(50, Window::Height() / 2 - 120);
+	Rect(48, Window::ClientSize().y / 2 - 122, bannerCenter.w + 4, bannerCenter.h + 4).draw();
+	games[selectGame].img_banner.resized(bannerCenter.w, bannerCenter.h).draw(50, Window::ClientSize().y / 2 - 120);
 
-	debugFont.draw(ToString(selectGame + 1) + L"/" + ToString(numGames), Vec2(10, Window::Height() - 50));
+	debugFont(ToString(selectGame + 1) + U"/" + ToString(numGames)).draw(Vec2(10, Window::ClientSize().y - 50));
 
 	//画像と説明文との境界線
-	Line(400, 0, 400, Window::Height()).draw(5);
-	Line(406, 0, 406, Window::Height()).draw(2);
+	Line(400, 0, 400, Window::ClientSize().y).draw(5);
+	Line(406, 0, 406, Window::ClientSize().y).draw(2);
 
 	//説明文の表示
 	tb_title.draw(games[selectGame].info.name, games[selectGame].textFrame);
@@ -104,23 +104,19 @@ void Launcher::draw() {
 	btn_viewPaper.draw();
 	btn_gameLaunsh.draw();
 
-	games[selectGame].screenshots[selectImg].resize(bannerCenter.w, bannerCenter.h).draw(460, winH / 2 - 120);
+	games[selectGame].screenshots[selectImg].resized(bannerCenter.w, bannerCenter.h).draw(460, winH / 2 - 120);
 
-	debugFont.draw(ToString(selectImg + 1) + L"/" + ToString(numImgs), { 800, winH / 2 + 90 });
+	debugFont(ToString(selectImg + 1) + U"/" + ToString(numImgs)).draw(Vec2(800, winH / 2 + 90));
 
 	if (isShowingOptional) {
 		btn_operation.draw();
-		double amp = Min((Window::Width() - 40) / 4, (Window::Height() - 40) / 3);
+		double amp = Min((Window::ClientSize().x - 40) / 4, (Window::ClientSize().y - 40) / 3);
 		int w = (int)(4 * amp);
 		int h = (int)(3 * amp);
-		Rect(18, 18, Window::Width() - 36, Window::Height() - 36).draw({ 128,0,128,255 });
-		games[selectGame].img_operation.resize(w, h).draw((Window::Width() - w) / 2, (Window::Height() - h) / 2);
+		Rect(18, 18, Window::ClientSize().x - 36, Window::ClientSize().y - 36).draw({ 128,0,128,255 });
+		games[selectGame].img_operation.resized(w, h).draw((Window::ClientSize().x - w) / 2, (Window::ClientSize().y - h) / 2);
 
 	}
-
-
-
-
 
 	//実行中ならば最少化&カウンタ回す
 	if (process) {
@@ -131,7 +127,7 @@ void Launcher::draw() {
 		else {
 			//Window::Restore();
 			process = none;
-			logWriter.writeln(time.format(L"HH:mm:ss,") + games[selectGame].info.name + L"," + ToString(stopwatch.s()));
+			logWriter.writeln(time.format(U"HH:mm:ss,") + games[selectGame].info.name + U"," + ToString(stopwatch.s()));
 			stopwatch.reset();
 		}
 	}
@@ -154,32 +150,32 @@ int Launcher::numLoop(int next, int max) {
 }
 
 void Launcher::checkKey() {
-	if (Input::KeyDown.clicked || Gamepad(0).povBackward.clicked || btn_bannerNext.leftClicked()) {
+	if (KeyDown.pressed || Gamepad(0).povDown.pressed || btn_bannerNext.leftClicked()) {
 		selectGame = numLoop(selectGame + 1, numGames);
 		numImgs = games[selectGame].screenshots.size();
 		selectImg = 0;
 	}
-	if (Input::KeyUp.clicked || Gamepad(0).povForward.clicked || btn_bannerPrev.leftClicked()) {
+	if (KeyUp.pressed || Gamepad(0).povUp.pressed || btn_bannerPrev.leftClicked()) {
 		selectGame = numLoop(selectGame - 1, numGames);
 		numImgs = games[selectGame].screenshots.size();
 		selectImg = 0;
 	}
-	if (Input::KeyLeft.clicked || Gamepad(0).povLeft.clicked) {
+	if (KeyLeft.pressed || Gamepad(0).povLeft.pressed) {
 		selectImg = numLoop(selectImg + 1, numImgs);
 	}
-	if (Input::KeyRight.clicked || Gamepad(0).povRight.clicked) {
+	if (KeyRight.pressed || Gamepad(0).povRight.pressed) {
 		selectImg = numLoop(selectImg - 1, numImgs);
 	}
 
 	//padのボタンは0オリジンなのでそこに注意
-	if (Input::KeyX.clicked || Gamepad(0).button(2).clicked || btn_viewPaper.leftClicked()) {
+	if (KeyX.pressed || Gamepad(0).buttons[2].pressed || btn_viewPaper.leftClicked()) {
 
 		isShowingOptional = true;
-		btn_operation = Button({ 10,10 }, { Window::Width() - 20, Window::Height() - 20 }, 0, 1, L"");
+		btn_operation = Button({ 10,10 }, { Window::ClientSize().x - 20, Window::ClientSize().y - 20 }, 0, 1, U"");
 	}
 
-	if (Input::KeyZ.clicked || Gamepad(0).button(3).clicked || btn_gameLaunsh.leftClicked()) {
-		process = System::CreateProcess(games[selectGame].exePath);
+	if (KeyZ.pressed || Gamepad(0).buttons[3].pressed || btn_gameLaunsh.leftClicked()) {
+		process = Process::Spawn(games[selectGame].exePath);
 		playingCounter = 0;
 		stopwatch.start();
 	}

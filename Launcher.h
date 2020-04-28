@@ -49,13 +49,13 @@ private:
 
 	void checkKey();
 
-	Optional<ProcessInfo> process;
+	Optional<ChildProcess> process;
 	int playingCounter;
 	int winW, winH;
 
 	bool isShowingOptional = false;
 
-	Shape s;
+	//Shape s;
 	TextWriter logWriter;
 
 	Stopwatch stopwatch;
