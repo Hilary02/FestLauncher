@@ -20,7 +20,7 @@ Button::Button(Point pos, Size s, int r, int fontsize, String str) {
 Button::~Button() {}
 
 bool Button::leftClicked() {
-	return this->base.leftClicked;
+	return this->base.leftClicked();
 }
 
 void Button::setPos(Point p) {
@@ -40,7 +40,7 @@ void Button::update() {
 
 void Button::draw() {
 	base.draw(Color(255, 255, 255));
-	if (base.mouseOver) {
+	if (base.mouseOver()) {
 		over.draw(Color(255, 0, 0, 200));
 	}
 	font(text).draw(Vec2(pos.x + size.x / 2, pos.y + size.y / 2), Palette::Black);

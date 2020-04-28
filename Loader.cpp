@@ -18,8 +18,8 @@ Array<Game> Loader::LoadGames() {
 		Game tmpGame;
 
 		tmpGame.exePath = SearchExePath(files);
-		
-		if (tmpGame.exePath.length == 0) break; //実行するものがなければ話にならない
+
+		if (tmpGame.exePath.length() == 0) break; //実行するものがなければ話にならない
 
 		tmpGame.info = SearchInfo(files);
 		tmpGame.img_banner = SearchBannerImg(files);
@@ -38,7 +38,7 @@ Array<Game> Loader::LoadGames() {
 FilePath Loader::SearchExePath(const Array<FilePath>& files) {
 	FilePath exepath;
 	for (const auto& file : files) {
-		if (file.includes(L".exe") == true) {
+		if (file.includes(U".exe") == true) {
 			exepath = file;
 			break;
 		}
@@ -53,14 +53,14 @@ Info Loader::SearchInfo(const Array<FilePath>& files) {
 
 	for (const auto& file : files) {
 		String line;
-		if (file.includes(L"info.txt") == true) {
+		if (file.includes(U"info.txt") == true) {
 			reader.open(file);
 			reader.readLine(info.name);
 			reader.readLine(info.summary);
 			reader.readLine(info.frameImg);
 			//reader.readLine(info.bannerColor);
-			for (int i = 0; reader.readLine(line) && i < 3; i++){	//行が存在かつ3行以内
-				info.explain += (line + L"\n");
+			for (int i = 0; reader.readLine(line) && i < 3; i++) {	//行が存在かつ3行以内
+				info.explain += (line + U"\n");
 			}
 			break;
 		}
@@ -74,10 +74,10 @@ Info Loader::SearchInfo(const Array<FilePath>& files) {
 Texture Loader::SearchBannerImg(const Array<FilePath>& files) {
 	FilePath tmpBanner;
 
-	tmpBanner = L"./Design/noImg.png";
+	tmpBanner = U"./Design/noImg.png";
 	for (const auto& file : files) {
-		//if (file.includes(L"banner") == true) {
-		if (file.includes(L"image") == true) {
+		//if (file.includes(U"banner") == true) {
+		if (file.includes(U"image") == true) {
 			tmpBanner = file;
 			break;
 		}
@@ -87,12 +87,12 @@ Texture Loader::SearchBannerImg(const Array<FilePath>& files) {
 }
 
 //操作説明画像を1つ読み込む．画像が存在しないとき，noImgとなる
-Texture Loader::SearchOperationImg(const Array<FilePath>& files){
+Texture Loader::SearchOperationImg(const Array<FilePath>& files) {
 	FilePath tmpOpe;
 
-	tmpOpe = L"./Design/noImg.png";
+	tmpOpe = U"./Design/noImg.png";
 	for (const auto& file : files) {
-		if (file.includes(L"operation") == true) {
+		if (file.includes(U"operation") == true) {
 			tmpOpe = file;
 			break;
 		}
@@ -105,24 +105,24 @@ Texture Loader::SearchOperationImg(const Array<FilePath>& files){
 Array<Texture> Loader::SearchSS(const Array<FilePath>& files) {
 	Array<Texture> tmpTextures;
 	for (const auto& file : files) {
-		if (file.includes(L"screenshot") == true) {
+		if (file.includes(U"screenshot") == true) {
 			tmpTextures.push_back(Texture(file));
 		}
 	}
 	if (tmpTextures.size() == 0) {
-		FilePath tmp = L"./Design/noImg.png";
+		FilePath tmp = U"./Design/noImg.png";
 		tmpTextures.push_back(Texture(tmp));
 	}
 	return tmpTextures;
 }
 
-Texture Loader::SetTextFrame(const String & path){
-	FilePath folderpass = L"./Design";
+Texture Loader::SetTextFrame(const String& path) {
+	FilePath folderpass = U"./Design";
 	Array<FilePath> folders = FileSystem::DirectoryContents(folderpass);
-	FilePath tmpFrame = L"./Design/redFrame.png";
+	FilePath tmpFrame = U"./Design/redFrame.png";
 	for (const auto& file : folders) {
 		if (file.includes(path) == true) {
-			tmpFrame = folderpass + L"/"+ path;
+			tmpFrame = folderpass + U"/" + path;
 		}
 	}
 	return Texture(tmpFrame);

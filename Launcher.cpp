@@ -50,7 +50,7 @@ void Launcher::update() {
 	if (isShowingOptional) {
 		//btn_operation.update();
 		btn_operation.setSize({ Window::ClientSize().x - 20, Window::ClientSize().y - 20 });
-		if (KeyX.down() || Gamepad(0).buttons[2].pressed || btn_operation.leftClicked()) {
+		if (KeyX.down() || Gamepad(0).buttons[2].pressed() || btn_operation.leftClicked()) {
 			isShowingOptional = false;
 		}
 	}
@@ -150,31 +150,31 @@ int Launcher::numLoop(int next, int max) {
 }
 
 void Launcher::checkKey() {
-	if (KeyDown.pressed || Gamepad(0).povDown.pressed || btn_bannerNext.leftClicked()) {
+	if (KeyDown.pressed() || Gamepad(0).povDown.pressed() || btn_bannerNext.leftClicked()) {
 		selectGame = numLoop(selectGame + 1, numGames);
 		numImgs = games[selectGame].screenshots.size();
 		selectImg = 0;
 	}
-	if (KeyUp.pressed || Gamepad(0).povUp.pressed || btn_bannerPrev.leftClicked()) {
+	if (KeyUp.pressed() || Gamepad(0).povUp.pressed() || btn_bannerPrev.leftClicked()) {
 		selectGame = numLoop(selectGame - 1, numGames);
 		numImgs = games[selectGame].screenshots.size();
 		selectImg = 0;
 	}
-	if (KeyLeft.pressed || Gamepad(0).povLeft.pressed) {
+	if (KeyLeft.pressed() || Gamepad(0).povLeft.pressed()) {
 		selectImg = numLoop(selectImg + 1, numImgs);
 	}
-	if (KeyRight.pressed || Gamepad(0).povRight.pressed) {
+	if (KeyRight.pressed() || Gamepad(0).povRight.pressed()) {
 		selectImg = numLoop(selectImg - 1, numImgs);
 	}
 
 	//padのボタンは0オリジンなのでそこに注意
-	if (KeyX.pressed || Gamepad(0).buttons[2].pressed || btn_viewPaper.leftClicked()) {
+	if (KeyX.pressed() || Gamepad(0).buttons[2].pressed() || btn_viewPaper.leftClicked()) {
 
 		isShowingOptional = true;
 		btn_operation = Button({ 10,10 }, { Window::ClientSize().x - 20, Window::ClientSize().y - 20 }, 0, 1, U"");
 	}
 
-	if (KeyZ.pressed || Gamepad(0).buttons[3].pressed || btn_gameLaunsh.leftClicked()) {
+	if (KeyZ.pressed() || Gamepad(0).buttons[3].pressed() || btn_gameLaunsh.leftClicked()) {
 		process = Process::Spawn(games[selectGame].exePath);
 		playingCounter = 0;
 		stopwatch.start();

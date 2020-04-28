@@ -22,14 +22,14 @@ TextFrame::TextFrame(FilePath texture) {
 //}
 
 void TextFrame::draw(Point basePos, Size size) {
-	const int w = frame.width / 3;
-	const int h = frame.height / 3;
+	int w = frame.width() / 3;
+	int h = frame.height() / 3;
 	const std::array<int, 3> width = { w, size.x - 2 * w, w };
 	const std::array<int, 3> height = { h, size.y - 2 * h, h };
 	Point p(basePos);
 	for (int y = 0; y < 3; y++) {
 		for (int x = 0; x < 3; x++) {
-			frame({ w*x,h*y }, { w, h }).resize(width[x], height[y]).draw(p);
+			frame({ w * x,h * y }, { w, h }).resized(width[x], height[y]).draw(p);
 			p.x += width[x];
 		}
 		p.x = basePos.x;
@@ -37,16 +37,16 @@ void TextFrame::draw(Point basePos, Size size) {
 	}
 }
 
-void TextFrame::draw(Point basePos, Size size, Texture frame){
+void TextFrame::draw(Point basePos, Size size, Texture frame) {
 	this->frame = frame;
-	const int w = frame.width / 3;
-	const int h = frame.height / 3;
+	int w = frame.width() / 3;
+	int h = frame.height() / 3;
 	const std::array<int, 3> width = { w, size.x - 2 * w, w };
 	const std::array<int, 3> height = { h, size.y - 2 * h, h };
 	Point p(basePos);
 	for (int y = 0; y < 3; y++) {
 		for (int x = 0; x < 3; x++) {
-			frame({ w*x,h*y }, { w, h }).resize(width[x], height[y]).draw(p);
+			frame({ w * x,h * y }, { w, h }).resized(width[x], height[y]).draw(p);
 			p.x += width[x];
 		}
 		p.x = basePos.x;

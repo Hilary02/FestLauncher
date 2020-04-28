@@ -17,7 +17,7 @@ void Main() {
 	Window::Resize(1200, 600);				//ウィンドウサイズ初期化
 	Scene::SetBackground(Palette::Gray);
 
-	Window::SetTitle(L"GameLauncher");
+	Window::SetTitle(U"GameLauncher");
 	Window::SetStyle(WindowStyle::Sizable); //サイズ可変
 
 	const FilePath homeDirectory = FileSystem::CurrentDirectory();

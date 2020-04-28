@@ -17,6 +17,7 @@ protected:
 	Point pos;
 	Size size;
 	Font font;
+	Rect rect;
 	bool isCenterText = false;
 	void drawFrame(Point basePos, Size size, Texture frame);
 };
