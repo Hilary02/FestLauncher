@@ -114,13 +114,13 @@
     <ClCompile Include="stdafx.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TextBox.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="TextFrame.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="baseButton.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TextArea.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -397,9 +397,6 @@
     </Xml>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="TextBox.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="TextFrame.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -419,6 +416,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="stdafx.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="TextArea.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
