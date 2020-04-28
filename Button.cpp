@@ -6,16 +6,18 @@ Button::Button() {
 }
 
 Button::Button(Point pos, Size s, int r, int fontsize, String str) {
-	this->pos =pos;
+	this->pos = pos;
 	size = s;
 	font = Font(fontsize);
+	font = Font();
+
 	text = str;
 	base = RoundRect(pos, s, r);
 	over = RoundRect(pos, s, r);
 }
 
 
-Button::~Button(){}
+Button::~Button() {}
 
 bool Button::leftClicked() {
 	return this->base.leftClicked;
@@ -26,12 +28,12 @@ void Button::setPos(Point p) {
 	base.setPos(p);
 	over.setPos(p);
 }
-void Button::setSize(Size s){
+
+void Button::setSize(Size s) {
 	size = s;
 	base.setSize(s);
 	over.setSize(s);
 }
-
 
 void Button::update() {
 }
@@ -41,7 +43,8 @@ void Button::draw() {
 	if (base.mouseOver) {
 		over.draw(Color(255, 0, 0, 200));
 	}
-	font.drawCenter(text, Vec2(pos.x + size.x / 2, pos.y + size.y/ 2), Palette::Black);
+	font(text).draw(Vec2(pos.x + size.x / 2, pos.y + size.y / 2), Palette::Black);
+
 }
 
 //void Button::clickedAction() {
