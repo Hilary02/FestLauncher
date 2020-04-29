@@ -10,7 +10,7 @@ Loader::~Loader()
 
 Array<Game> Loader::LoadGames() {
 	//ゲームフォルダ内のディレクトリを格納
-	Array<FilePath> folders = FileSystem::DirectoryContents(foldername);
+	Array<FilePath> folders = FileSystem::DirectoryContents(foldername,false);
 
 	Array<Game> tmpGameList;
 	for (unsigned int i = 0; i < folders.size(); i++) {
