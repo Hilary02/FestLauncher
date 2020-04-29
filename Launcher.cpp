@@ -167,14 +167,21 @@ void Launcher::checkKey() {
 		selectImg = numLoop(selectImg - 1, numImgs);
 	}
 
-	//padのボタンは0オリジンなのでそこに注意
-	if (KeyX.pressed() || Gamepad(0).buttons[2].pressed() || btn_viewPaper.leftClicked()) {
+	bool pad_button2_pressed = false;
+	bool pad_button3_pressed = false;
 
+	//padのボタンは0オリジンなのでそこに注意
+	if (const auto gamepad = Gamepad(0)) {
+		pad_button2_pressed = gamepad.buttons[2].pressed();
+		pad_button3_pressed = gamepad.buttons[3].pressed();
+	}
+
+	if (KeyX.pressed() || btn_viewPaper.leftClicked() || pad_button2_pressed) {
 		isShowingOptional = true;
 		btn_operation = Button({ 10,10 }, { Window::ClientSize().x - 20, Window::ClientSize().y - 20 }, 0, 1, U"");
 	}
 
-	if (KeyZ.pressed() || Gamepad(0).buttons[3].pressed() || btn_gameLaunsh.leftClicked()) {
+	if (KeyZ.pressed() || btn_gameLaunsh.leftClicked() || pad_button3_pressed) {
 		process = Process::Spawn(games[selectGame].exePath);
 		playingCounter = 0;
 		stopwatch.start();
